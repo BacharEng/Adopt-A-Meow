@@ -15,16 +15,14 @@ body {
   margin-top: 12px;
 }
 
+.bannerImg {
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+}
+
 .btnHover:hover {
   background-color: #58a399;
-}
-
-.navbar-right {
-  align-self: right;
-}
-
-.nav-item {
-  margin-right: 6px;
 }
 
 h1 {

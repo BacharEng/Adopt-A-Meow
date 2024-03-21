@@ -3,10 +3,14 @@ const Homepage = () => {
     <>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-sm-4"></div>
-          <div className="col-sm-4">
-            <h1>Home Page</h1>
+          <div className="col-sm-12 bannerImg">
+            <img
+              src="src\assets\cat-banner-1980x350.jpg"
+              className="img-fluid"
+            />
           </div>
+          <div className="col-sm-4"></div>
+          <div className="col-sm-4"></div>
           <div className="col-sm-4"></div>
         </div>
       </div>
