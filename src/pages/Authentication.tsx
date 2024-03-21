@@ -7,7 +7,6 @@ import {
 import { collection, addDoc } from "firebase/firestore";
 import { auth, database } from "../services/firebaseConfig";
 import { useNavigate } from "react-router-dom";
-import Login from "../components/Login";
 
 const Authentication: React.FC = () => {
   const [password, setPassword] = useState("");
