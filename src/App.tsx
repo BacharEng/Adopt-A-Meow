@@ -11,6 +11,7 @@ import Authentication from "./pages/Authentication";
 import Cat from "./pages/Cat";
 import MyAccount from "./pages/MyAccount";
 import Error401 from "./pages/Error401";
+import NavBar from "./components/Navbar";
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -56,6 +57,7 @@ function App() {
                 path="/homepage"
                 element={
                   <>
+                    <NavBar />
                     <Homepage />
                   </>
                 }
@@ -64,6 +66,7 @@ function App() {
                 path="/*"
                 element={
                   <>
+                    <NavBar />
                     <Homepage />
                   </>
                 }
@@ -72,6 +75,7 @@ function App() {
                 path="/cat"
                 element={
                   <>
+                    <NavBar />
                     <Cat />
                   </>
                 }
@@ -80,6 +84,7 @@ function App() {
                 path="/myaccount"
                 element={
                   <>
+                    <NavBar />
                     <MyAccount />
                   </>
                 }

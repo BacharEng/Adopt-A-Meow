@@ -14,17 +14,33 @@ body {
 .loginBtn {
   margin-top: 12px;
 }
+
 .btnHover:hover {
   background-color: #58a399;
 }
+
+.navbar-right {
+  align-self: right;
+}
+
+.nav-item {
+  margin-right: 6px;
+}
+
 h1 {
   font-size: xx-large;
 }
+
 h2 {
   font-size: large;
 }
+
 h3 {
   font-size: small;
+}
+
+.r10 {
+  border-radius: 10px;
 }
 
 .light-green-text {
