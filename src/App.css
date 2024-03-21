@@ -1,0 +1,76 @@
+body {
+  background-color: #e2f4c5;
+}
+
+.inputLogin {
+  margin-top: 12px;
+  max-width: 60%;
+}
+
+.login {
+  padding-top: 10%;
+}
+
+.loginBtn {
+  margin-top: 12px;
+}
+.btnHover:hover {
+  background-color: #58a399;
+}
+h1 {
+  font-size: xx-large;
+}
+h2 {
+  font-size: large;
+}
+h3 {
+  font-size: small;
+}
+
+.light-green-text {
+  color: #e2f4c5;
+}
+
+.green-text {
+  color: #a8cd9f;
+}
+
+.dark-green-text {
+  color: #58a399;
+}
+
+.dark-blue-text {
+  color: #496989;
+}
+
+.black-text {
+  color: black;
+}
+
+.dark-grey-text {
+  color: #828282;
+}
+
+.white-text {
+  color: white;
+}
+
+.light-green-bg {
+  background-color: #e2f4c5;
+}
+
+.green-bg {
+  background-color: #a8cd9f;
+}
+
+.dark-green-bg {
+  background-color: #58a399;
+}
+
+.dark-blue-bg {
+  background-color: #496989;
+}
+
+.black-bg {
+  background-color: black;
+}
