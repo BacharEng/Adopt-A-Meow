@@ -7,13 +7,21 @@ import {
 import { collection, addDoc } from "firebase/firestore";
 import { auth, database } from "../services/firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../store/useUserStore";
 
 const Authentication: React.FC = () => {
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    setId,
+    setFirstName,
+    setLastName,
+    setEmail,
+    setPhone,
+  } = useUserStore();
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
 
   const [loginView, setLoginView] = useState(true);
 
@@ -23,6 +31,8 @@ const Authentication: React.FC = () => {
     if (email !== "" && password !== "") {
       await signInWithEmailAndPassword(auth, email, password)
         .then((result) => {
+          console.log(result.user.uid);
+          setId(result.user.uid);
           navigate("/homepage");
         })
         .catch((error) => {
@@ -58,7 +68,9 @@ const Authentication: React.FC = () => {
             firstName: firstName,
             lastName: lastName,
             email: email,
-          }).then((account_created) => {
+          }).then(() => {
+            console.log(result.user.uid);
+            setId(result.user.uid);
             navigate("/homepage");
           });
         })

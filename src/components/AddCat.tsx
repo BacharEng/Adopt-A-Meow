@@ -2,13 +2,22 @@ import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { createCat } from "../services/catService";
 import { useCatStore } from "../store/useCatStore";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { toast } from "react-toastify";
+import { useUserStore } from "../store/useUserStore";
+import { storage } from "../services/firebaseConfig";
 
 const AddCat: React.FC = () => {
-  const [catImage, setCatImage] = useState<File | null>(null);
+  const [catImage, setCatImage] = useState("");
   const [catName, setCatName] = useState("");
   const [catAge, setCatAge] = useState("");
   const [fosterAddress, setFosterAddress] = useState("");
   const [fosterPhone, setFosterPhone] = useState("");
+  const { id } = useUserStore();
+  const [fosterID, setFosterID] = useState("");
+  const [tempImage, setTempImage] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const addCat = useCatStore((state) => state.addCat);
 
@@ -21,25 +30,27 @@ const AddCat: React.FC = () => {
         fosterAddress,
         fosterPhone,
         catImage,
+        fosterID: id,
       });
-
+      
       setCatName("");
       setCatAge("");
       setFosterAddress("");
       setFosterPhone("");
-      setCatImage(null);
+      setCatImage("");
+      setFosterID("");
     },
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutate({ catName, catAge, fosterAddress, fosterPhone, catImage });
+    mutate({ catName, catAge, fosterAddress, fosterPhone, catImage, fosterID });
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setCatImage(file);
+      setTempImage(file);
     } else {
       console.log("No files were added by User");
     }
@@ -49,13 +60,44 @@ const AddCat: React.FC = () => {
     return error instanceof Error;
   }
 
+  const uploadImage = async () => {
+    setIsUploading(true);
+    if (tempImage) {
+      const storageRef = ref(storage, `catImages/${tempImage.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, tempImage);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const prog = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setProgress(prog);
+        },
+        (error) => console.log(error),
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref)
+            .then(async (downloadURL) => {
+              setCatImage(downloadURL);
+              setIsUploading(false);
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
+        }
+      );
+    } else {
+      setIsUploading(false);
+      toast.error("No image was uploaded");
+    }
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <div className="form-floating">
           <input
             type="text"
-            className="form-control inputLogin"
+            className="form-control catForm"
             placeholder="Name of the cat"
             value={catName}
             onChange={(e) => setCatName(e.target.value)}
@@ -66,7 +108,7 @@ const AddCat: React.FC = () => {
         <div className="form-floating">
           <input
             type="text"
-            className="form-control inputLogin"
+            className="form-control catForm"
             placeholder="Age of the cat"
             value={catAge}
             onChange={(e) => setCatAge(e.target.value)}
@@ -77,7 +119,7 @@ const AddCat: React.FC = () => {
         <div className="form-floating">
           <input
             type="text"
-            className="form-control inputLogin"
+            className="form-control catForm"
             placeholder="Foster Family Address"
             value={fosterAddress}
             onChange={(e) => setFosterAddress(e.target.value)}
@@ -88,7 +130,7 @@ const AddCat: React.FC = () => {
         <div className="form-floating">
           <input
             type="tel"
-            className="form-control inputLogin"
+            className="form-control catForm"
             placeholder="Phone number of foster family"
             value={fosterPhone}
             onChange={(e) => setFosterPhone(e.target.value)}
@@ -99,16 +141,35 @@ const AddCat: React.FC = () => {
         <div className="form-floating">
           <input
             type="file"
-            className="form-control inputLogin"
+            className="form-control catForm"
             onChange={handleImageChange}
+            accept="image/*"
           />
           <label>Cat Image</label>
         </div>
+        {isUploading ? (
+          <>
+            <p>Loading...</p>
+            <p>{progress}</p>
+          </>
+        ) : (
+          <>
+            <div className="form-floating">
+              <button
+                type="button"
+                className="btn btn-lg btn-warning catForm"
+                onClick={uploadImage}
+              >
+                Upload image
+              </button>
+            </div>
+          </>
+        )}
 
         <button
           type="submit"
-          className="btn btn-success btn-lg inputLogin"
-          disabled={isLoading}
+          className="btn btn-success btn-lg catForm"
+          disabled={isLoading || isUploading}
         >
           Add New Cat
         </button>

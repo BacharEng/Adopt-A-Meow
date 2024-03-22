@@ -7,6 +7,10 @@ body {
   max-width: 60%;
 }
 
+.catForm {
+  margin-top: 12px;
+}
+
 .login {
   padding-top: 10%;
 }
@@ -43,6 +47,14 @@ h3 {
 
 .r10 {
   border-radius: 10px;
+}
+
+.top-mar-6 {
+  margin-top: 6px;
+}
+
+.right-mar-6 {
+  margin-right: 6px;
 }
 
 .light-green-text {

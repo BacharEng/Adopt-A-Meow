@@ -30,11 +30,11 @@ export const updateCat = async (
   id: string,
   update: Partial<Omit<Cat, "id">>
 ): Promise<void> => {
-  const userDoc = doc(database, "cats", id);
-  await updateDoc(userDoc, update);
+  const catDoc = doc(database, "cats", id);
+  await updateDoc(catDoc, update);
 };
 
 export const deleteCat = async (id: string): Promise<void> => {
-  const userDoc = doc(database, "cats", id);
-  await deleteDoc(userDoc);
+  const catDoc = doc(database, "cats", id);
+  await deleteDoc(catDoc);
 };

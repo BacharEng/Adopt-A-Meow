@@ -1,4 +1,8 @@
+import CatsList from "../components/CatList";
+import { useFetchAndUpdateCats } from "../hooks/useFetchAndUpdateCats";
+
 const Homepage = () => {
+  useFetchAndUpdateCats();
   return (
     <>
       <div className="container-fluid">
@@ -9,9 +13,7 @@ const Homepage = () => {
               className="img-fluid"
             />
           </div>
-          <div className="col-sm-4"></div>
-          <div className="col-sm-4"></div>
-          <div className="col-sm-4"></div>
+          <CatsList />
         </div>
       </div>
     </>
