@@ -33,12 +33,12 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="navbarToggler">
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
             <li className="nav-item">
-              <a className="nav-link" href="/homepage">
+              <a className="nav-link white-text" href="/homepage">
                 Home
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/myaccount">
+              <a className="nav-link white-text" href="/myaccount">
                 My Account
               </a>
             </li>

@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 const Authentication: React.FC = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");

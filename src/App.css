@@ -25,6 +25,10 @@ body {
   background-color: #58a399;
 }
 
+.sideBar {
+  margin-top: 12px;
+}
+
 h1 {
   font-size: xx-large;
 }
