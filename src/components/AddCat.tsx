@@ -32,7 +32,7 @@ const AddCat: React.FC = () => {
         catImage,
         fosterID: id,
       });
-      
+
       setCatName("");
       setCatAge("");
       setFosterAddress("");

@@ -27,7 +27,9 @@ export const useUserStore = create<UserStore>((set) => ({
   lastName: "",
   email: "",
   phone: "",
-  setId: (id) => set({ id }),
+  setId: (id) => {
+    set({ id });
+  },
   setFirstName: (firstName) => set({ firstName }),
   setLastName: (lastName) => set({ lastName }),
   setEmail: (email) => set({ email }),

@@ -1,7 +1,9 @@
 import CatsList from "../components/CatList";
 import { useFetchAndUpdateCats } from "../hooks/useFetchAndUpdateCats";
+import { useUserStore } from "../store/useUserStore";
 
 const Homepage = () => {
+  const { id } = useUserStore();
   useFetchAndUpdateCats();
   return (
     <>
@@ -13,6 +15,7 @@ const Homepage = () => {
               className="img-fluid"
             />
           </div>
+          <h1 style={{ paddingBottom: "36px" }}>{`Hello user: ${id}`}</h1>
           <CatsList />
         </div>
       </div>

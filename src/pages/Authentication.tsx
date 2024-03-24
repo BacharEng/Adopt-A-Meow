@@ -15,11 +15,12 @@ const Authentication: React.FC = () => {
     lastName,
     email,
     phone,
-    setId,
+    id,
     setFirstName,
     setLastName,
     setEmail,
     setPhone,
+    setId,
   } = useUserStore();
   const [password, setPassword] = useState("");
 
@@ -32,7 +33,6 @@ const Authentication: React.FC = () => {
       await signInWithEmailAndPassword(auth, email, password)
         .then((result) => {
           console.log(result.user.uid);
-          setId(result.user.uid);
           navigate("/homepage");
         })
         .catch((error) => {
@@ -70,7 +70,6 @@ const Authentication: React.FC = () => {
             email: email,
           }).then(() => {
             console.log(result.user.uid);
-            setId(result.user.uid);
             navigate("/homepage");
           });
         })
