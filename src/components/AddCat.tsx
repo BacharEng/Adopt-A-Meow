@@ -4,8 +4,7 @@ import { createCat } from "../services/catService";
 import { useCatStore } from "../store/useCatStore";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { toast } from "react-toastify";
-import { useUserStore } from "../store/useUserStore";
-import { storage } from "../services/firebaseConfig";
+import { storage, auth } from "../services/firebaseConfig";
 
 const AddCat: React.FC = () => {
   const [catImage, setCatImage] = useState("");
@@ -13,8 +12,7 @@ const AddCat: React.FC = () => {
   const [catAge, setCatAge] = useState("");
   const [fosterAddress, setFosterAddress] = useState("");
   const [fosterPhone, setFosterPhone] = useState("");
-  const { id } = useUserStore();
-  const [fosterID, setFosterID] = useState("");
+  const [fosterID, setFosterID] = useState(auth.currentUser?.uid);
   const [tempImage, setTempImage] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -30,7 +28,7 @@ const AddCat: React.FC = () => {
         fosterAddress,
         fosterPhone,
         catImage,
-        fosterID: id,
+        fosterID,
       });
 
       setCatName("");
@@ -93,6 +91,7 @@ const AddCat: React.FC = () => {
 
   return (
     <div>
+      <h1>{`This is the UID: ${auth.currentUser?.uid}`}</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-floating">
           <input

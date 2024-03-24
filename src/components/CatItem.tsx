@@ -48,7 +48,8 @@ const CatItem: React.FC<CatItemProps> = ({ cat }) => {
     }
   );
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     updateMutation.mutate({
       id: cat.id,
       update: {

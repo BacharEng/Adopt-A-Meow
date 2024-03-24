@@ -7,7 +7,7 @@ export interface Cat {
   fosterAddress: string;
   fosterPhone: string;
   catImage: string;
-  fosterID: string;
+  fosterID?: string;
 }
 
 interface CatStore {
