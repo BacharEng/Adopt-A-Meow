@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { createCat } from "../services/catService";
 import { useCatStore } from "../store/useCatStore";
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { toast } from "react-toastify";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage, auth } from "../services/firebaseConfig";
 
-const AddCat: React.FC = () => {
+interface Props {
+  isOpen: boolean;
+  closeModal: () => void;
+}
+
+const AddCat = (props: Props) => {
   const [catImage, setCatImage] = useState("");
   const [catName, setCatName] = useState("");
   const [catAge, setCatAge] = useState("");
@@ -43,6 +48,7 @@ const AddCat: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate({ catName, catAge, fosterAddress, fosterPhone, catImage, fosterID });
+    props.closeModal();
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +97,6 @@ const AddCat: React.FC = () => {
 
   return (
     <div>
-      <h1>{`This is the UID: ${auth.currentUser?.uid}`}</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-floating">
           <input

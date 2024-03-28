@@ -26,6 +26,14 @@ export const fetchCats = async (): Promise<Cat[]> => {
   });
 };
 
+export const fetchCatsByUID = async (): Promise<Cat[]> => {
+  const snapshot = await getDocs(usersCollectionRef);
+  return snapshot.docs.map((doc) => {
+    const data = doc.data() as Cat;
+    return { ...data, id: doc.id };
+  });
+};
+
 export const updateCat = async (
   id: string,
   update: Partial<Omit<Cat, "id">>

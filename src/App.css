@@ -33,6 +33,68 @@ body {
   margin-top: 12px;
 }
 
+.catGallery {
+  margin-top: 36px;
+}
+
+/* .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+} */
+
+.cat-list {
+  position: relative;
+  z-index: 1;
+}
+
+.cat-item {
+  position: relative;
+  background-color: #496989;
+  margin-bottom: 16px;
+  display: flex;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  z-index: 11;
+}
+
+.cat-item:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  transform: scale(1.03);
+}
+
+@media only screen and (min-width: 1024px) {
+  .cat-item-lg {
+    height: 30vh;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .cat-item-sm {
+    height: 50vh;
+    width: 100%;
+  }
+}
+
+.cat-image {
+  margin-top: 12px;
+  max-height: 150px;
+}
+
+.editIcon {
+  color: gold;
+  font-size: 32px;
+}
+
+.deleteIcon {
+  font-size: 36px;
+  color: crimson;
+}
+
 h1 {
   font-size: xx-large;
 }
