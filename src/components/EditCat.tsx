@@ -1,8 +1,107 @@
-import React from "react";
+import React, { useState } from "react";
+import { CatItemProps } from "./CatItem";
 
-const EditCat = () => {
+// import react-query services
+import { useMutation } from "react-query";
 
-    
+// import zustand services
+import { updateCat } from "../services/catService";
+import { useCatStore, Cat } from "../store/useCatStore";
+
+// import firebase services
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { storage, auth } from "../services/firebaseConfig";
+
+interface EditCatProps extends CatItemProps {
+  closeModal: () => void;
+}
+
+const EditCat: React.FC<EditCatProps> = (props: EditCatProps) => {
+  //local states
+
+  //local cat states
+  const [catName, setCatName] = useState(props.cat.catName);
+  const [catAge, setCatAge] = useState(props.cat.catAge);
+  const [fosterAddress, setFosterAddress] = useState(props.cat.fosterAddress);
+  const [fosterPhone, setFosterPhone] = useState(props.cat.fosterPhone);
+
+  //local image states
+  const [downloadURLs, setDownloadURLs] = useState<string[]>(
+    props.cat.catImages
+  );
+  const [files, setFiles] = useState<File[] | null>([]);
+  // const [isUploading, setIsUploading] = useState(false);
+  // const [progress, setProgress] = useState(0);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    updateMutation.mutate({
+      id: props.cat.id,
+      update: {
+        catName,
+        catAge,
+        fosterAddress,
+        fosterPhone,
+        catBannerImg: downloadURLs[0],
+        catImages: downloadURLs,
+      },
+    });
+    props.closeModal();
+  };
+
+  const updateMutation = useMutation(
+    ({ id, update }: { id: string; update: Partial<Omit<Cat, "id">> }) =>
+      updateCat(id, update),
+    {
+      onSuccess: () => {
+        useCatStore.getState().updateCat(props.cat.id, {
+          catName: catName,
+          catAge: catAge,
+          fosterAddress: fosterAddress,
+          fosterPhone: fosterPhone,
+          catBannerImg: downloadURLs[0],
+          catImages: downloadURLs,
+        });
+      },
+    }
+  );
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    if (fileList) {
+      const selectedFiles: File[] = Array.from(fileList);
+      setFiles(selectedFiles); // Set the files in state
+      uploadFiles(selectedFiles); // Call uploadFiles immediately
+    }
+  };
+
+  const uploadFiles = async (filesToUpload: File[]) => {
+    await filesToUpload.forEach((file) => {
+      const storageRef = ref(
+        storage,
+        `catImages/${auth.currentUser?.uid}/${Date.now()}_${file.name}`
+      );
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const prog = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          console.log(`Image is ${prog}/100% done`);
+        },
+        (error) => {
+          console.error("Error uploading file:", error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setDownloadURLs((prevURLs) => [...prevURLs, downloadURL]);
+          });
+        }
+      );
+    });
+  };
+
   return (
     <>
       <div>
@@ -50,45 +149,35 @@ const EditCat = () => {
           <div className="form-floating">
             <input
               type="file"
-              className="form-control catForm"
-              onChange={handleImageChange}
               accept="image/*"
+              multiple
+              className="form-control catForm"
+              onChange={handleFileChange}
             />
             <label>Cat Image</label>
           </div>
-          {isUploading ? (
-            <>
-              <p>Loading...</p>
-              <p>{progress}</p>
-            </>
-          ) : (
-            <>
-              <div className="form-floating">
-                <button
-                  type="button"
-                  className="btn btn-sm btn-warning catForm"
-                  onClick={uploadImage}
-                >
-                  Upload image
-                </button>
-              </div>
-            </>
-          )}
+          <div className="row">
+            {downloadURLs && (
+              <>
+                {downloadURLs.map((url, index) => (
+                  <div className="col-xl-3 col-md-4 col-sm-6" key={index}>
+                    <img
+                      className="uploadImage"
+                      src={url}
+                      alt={`Uploaded File ${index + 1}`}
+                    />
+                  </div>
+                ))}
+              </>
+            )}
+          </div>
 
           <button
             type="submit"
             className="btn btn-success btn-sm catForm right-mar-6"
             disabled={updateMutation.isLoading}
           >
-            Edit Cat
-          </button>
-
-          <button
-            type="button"
-            className="btn btn-danger btn-sm catForm right-mar-6"
-            onClick={() => setIsEditView(!isEditView)}
-          >
-            Exit edit mode
+            Submit Edit
           </button>
         </form>
       </div>

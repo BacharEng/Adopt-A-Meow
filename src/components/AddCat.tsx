@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { createCat } from "../services/catService";
 import { useCatStore } from "../store/useCatStore";
-import { toast } from "react-toastify";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage, auth } from "../services/firebaseConfig";
 
@@ -12,15 +11,22 @@ interface Props {
 }
 
 const AddCat = (props: Props) => {
-  const [catImage, setCatImage] = useState("");
+  //Local states
+
+  //cat local states
+  const [catBannerImg, setCatBannerImg] = useState("");
+  const [catImages, setCatImages] = useState([]);
   const [catName, setCatName] = useState("");
   const [catAge, setCatAge] = useState("");
   const [fosterAddress, setFosterAddress] = useState("");
   const [fosterPhone, setFosterPhone] = useState("");
   const [fosterID, setFosterID] = useState(auth.currentUser?.uid);
-  const [tempImage, setTempImage] = useState<File | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
+
+  //Upload images local states
+  const [downloadURLs, setDownloadURLs] = useState<string[]>([]);
+  const [files, setFiles] = useState<File[] | null>([]);
+  // const [progress, setProgress] = useState(0);
+  // const [isUploading, setIsUploading] = useState(false);
 
   const addCat = useCatStore((state) => state.addCat);
 
@@ -32,7 +38,8 @@ const AddCat = (props: Props) => {
         catAge,
         fosterAddress,
         fosterPhone,
-        catImage,
+        catBannerImg: downloadURLs[0],
+        catImages: downloadURLs,
         fosterID,
       });
 
@@ -40,60 +47,65 @@ const AddCat = (props: Props) => {
       setCatAge("");
       setFosterAddress("");
       setFosterPhone("");
-      setCatImage("");
+      setCatBannerImg("");
+      setCatImages([]);
       setFosterID("");
     },
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutate({ catName, catAge, fosterAddress, fosterPhone, catImage, fosterID });
+    mutate({
+      catName,
+      catAge,
+      fosterAddress,
+      fosterPhone,
+      catBannerImg,
+      catImages,
+      fosterID,
+    });
     props.closeModal();
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setTempImage(file);
-    } else {
-      console.log("No files were added by User");
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    if (fileList) {
+      const selectedFiles: File[] = Array.from(fileList);
+      setFiles(selectedFiles); // Set the files in state
+      uploadFiles(selectedFiles); // Call uploadFiles immediately
     }
   };
 
-  function isError(error: unknown): error is Error {
-    return error instanceof Error;
-  }
-
-  const uploadImage = async () => {
-    setIsUploading(true);
-    if (tempImage) {
-      const storageRef = ref(storage, `catImages/${tempImage.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, tempImage);
+  const uploadFiles = async (filesToUpload: File[]) => {
+    await filesToUpload.forEach((file) => {
+      const storageRef = ref(
+        storage,
+        `catImages/${auth.currentUser?.uid}/${Date.now()}_${file.name}`
+      );
+      const uploadTask = uploadBytesResumable(storageRef, file);
       uploadTask.on(
         "state_changed",
         (snapshot) => {
           const prog = Math.round(
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           );
-          setProgress(prog);
+          console.log(`Image is ${prog}/100% done`);
         },
-        (error) => console.log(error),
+        (error) => {
+          console.error("Error uploading file:", error);
+        },
         () => {
-          getDownloadURL(uploadTask.snapshot.ref)
-            .then(async (downloadURL) => {
-              setCatImage(downloadURL);
-              setIsUploading(false);
-            })
-            .catch((error) => {
-              console.log(error.message);
-            });
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setDownloadURLs((prevURLs) => [...prevURLs, downloadURL]);
+          });
         }
       );
-    } else {
-      setIsUploading(false);
-      toast.error("No image was uploaded");
-    }
+    });
   };
+
+  function isError(error: unknown): error is Error {
+    return error instanceof Error;
+  }
 
   return (
     <div>
@@ -144,36 +156,35 @@ const AddCat = (props: Props) => {
         </div>
         <div className="form-floating">
           <input
-            type="file"
             className="form-control catForm"
-            onChange={handleImageChange}
+            type="file"
             accept="image/*"
+            multiple
+            onChange={handleFileChange}
           />
           <label>Cat Image</label>
         </div>
-        {isUploading ? (
+        <div className="row">
+          {downloadURLs.map((url, index) => (
+            <div className="col-xl-3 col-md-4 col-sm-6" key={index}>
+              <img
+                className="uploadImage"
+                src={url}
+                alt={`Uploaded File ${index + 1}`}
+              />
+            </div>
+          ))}
+        </div>
+        {/* {isUploading && (
           <>
             <p>Loading...</p>
             <p>{progress}</p>
           </>
-        ) : (
-          <>
-            <div className="form-floating">
-              <button
-                type="button"
-                className="btn btn-lg btn-warning catForm"
-                onClick={uploadImage}
-              >
-                Upload image
-              </button>
-            </div>
-          </>
-        )}
-
+        )} */}
         <button
           type="submit"
           className="btn btn-success btn-lg catForm"
-          disabled={isLoading || isUploading}
+          disabled={isLoading}
         >
           Add New Cat
         </button>

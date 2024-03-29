@@ -85,6 +85,12 @@ body {
   max-height: 150px;
 }
 
+.uploadImage {
+  margin-top: 12px;
+  width: 100%;
+  max-height: 200px;
+}
+
 .editIcon {
   color: gold;
   font-size: 32px;

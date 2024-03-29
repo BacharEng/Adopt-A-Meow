@@ -6,13 +6,13 @@ export interface Cat {
   catAge: string;
   fosterAddress: string;
   fosterPhone: string;
-  catImage: string;
+  catBannerImg: string;
+  catImages: string[];
   fosterID?: string;
 }
 
 interface CatStore {
   cats: Cat[];
-  userCats: Cat[];
   setCats: (cats: Cat[]) => void;
   addCat: (cat: Cat) => void;
   updateCat: (id: string, update: Partial<Cat>) => void;
@@ -21,7 +21,6 @@ interface CatStore {
 
 export const useCatStore = create<CatStore>((set) => ({
   cats: [],
-  userCats: [],
   setCats: (cats) => set({ cats }),
   addCat: (cat) => set((state) => ({ cats: [...state.cats, cat] })),
   updateCat: (id, update) =>
