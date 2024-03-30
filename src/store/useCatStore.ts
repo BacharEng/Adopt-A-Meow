@@ -4,6 +4,10 @@ export interface Cat {
   id: string;
   catName: string;
   catAge: string;
+  catSex: string;
+  catBreed: string;
+  catWeight: string;
+  catDescription: string;
   fosterAddress: string;
   fosterPhone: string;
   catBannerImg: string;

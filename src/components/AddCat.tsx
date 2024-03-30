@@ -18,6 +18,10 @@ const AddCat = (props: Props) => {
   const [catImages, setCatImages] = useState([]);
   const [catName, setCatName] = useState("");
   const [catAge, setCatAge] = useState("");
+  const [catSex, setCatSex] = useState("");
+  const [catBreed, setCatBreed] = useState("");
+  const [catWeight, setCatWeight] = useState("");
+  const [catDescription, setCatDescription] = useState("");
   const [fosterAddress, setFosterAddress] = useState("");
   const [fosterPhone, setFosterPhone] = useState("");
   const [fosterID, setFosterID] = useState(auth.currentUser?.uid);
@@ -34,6 +38,10 @@ const AddCat = (props: Props) => {
         id: data.id,
         catName,
         catAge,
+        catSex,
+        catBreed,
+        catWeight,
+        catDescription,
         fosterAddress,
         fosterPhone,
         catBannerImg: downloadURLs[0],
@@ -43,6 +51,10 @@ const AddCat = (props: Props) => {
 
       setCatName("");
       setCatAge("");
+      setCatSex("");
+      setCatBreed("");
+      setCatWeight("");
+      setCatDescription("");
       setFosterAddress("");
       setFosterPhone("");
       setCatBannerImg("");
@@ -56,6 +68,10 @@ const AddCat = (props: Props) => {
     mutate({
       catName,
       catAge,
+      catSex,
+      catBreed,
+      catWeight,
+      catDescription,
       fosterAddress,
       fosterPhone,
       catBannerImg,
@@ -119,6 +135,7 @@ const AddCat = (props: Props) => {
           />
           <label>Cat Name</label>
         </div>
+
         <div className="form-floating">
           <input
             type="text"
@@ -130,6 +147,32 @@ const AddCat = (props: Props) => {
           />
           <label>Cat Age</label>
         </div>
+
+        <label className="radio-label">
+          Male
+          <input
+            className="form-control catForm"
+            type="radio"
+            name="sex"
+            value="Male"
+            placeholder="Male"
+            checked={catSex === "male"}
+            onChange={(e) => setCatSex(e.target.value)}
+          />
+        </label>
+        <label className="radio-label">
+          Female
+          <input
+            className="form-control catForm"
+            type="radio"
+            name="sex"
+            value="Female"
+            placeholder="Female"
+            checked={catSex === "Female"}
+            onChange={(e) => setCatSex(e.target.value)}
+          />
+        </label>
+
         <div className="form-floating">
           <input
             type="text"
@@ -141,6 +184,7 @@ const AddCat = (props: Props) => {
           />
           <label>Foster Address</label>
         </div>
+
         <div className="form-floating">
           <input
             type="tel"
@@ -152,6 +196,7 @@ const AddCat = (props: Props) => {
           />
           <label>Phone Number</label>
         </div>
+
         <div className="form-floating">
           <input
             className="form-control catForm"

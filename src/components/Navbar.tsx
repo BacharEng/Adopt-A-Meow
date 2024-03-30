@@ -42,16 +42,16 @@ const NavBar = () => {
                 My Account
               </a>
             </li>
+            <li className="nav-item">
+              <button
+                className="btn dark-blue-bg white-text btnHover my-2 my-sm-0"
+                type="button"
+                onClick={logout}
+              >
+                Logout
+              </button>
+            </li>
           </ul>
-          <form className="form-inline my-2 my-lg-0">
-            <button
-              className="btn dark-blue-bg white-text btnHover my-2 my-sm-0"
-              type="button"
-              onClick={logout}
-            >
-              Logout
-            </button>
-          </form>
         </div>
       </nav>
     </>

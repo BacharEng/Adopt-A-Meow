@@ -183,3 +183,16 @@ h3 {
 .dark-orange-bg {
   background-color: #ff8400;
 }
+
+input[type="radio"] {
+  position: relative;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 25px;
+  height: 25px;
+  border: 2px solid #000;
+  border-radius: 60%;
+  outline: none;
+  margin-right: 30px; /* Adjust spacing between radio buttons */
+  margin-left: 10px;
+}

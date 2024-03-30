@@ -15,12 +15,10 @@ const Authentication: React.FC = () => {
     lastName,
     email,
     phone,
-    id,
     setFirstName,
     setLastName,
     setEmail,
     setPhone,
-    setId,
   } = useUserStore();
   const [password, setPassword] = useState("");
 
