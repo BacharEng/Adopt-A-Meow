@@ -76,8 +76,8 @@ const AddCat = (props: Props) => {
       catDescription,
       fosterAddress,
       fosterPhone,
-      catBannerImg,
-      catImages,
+      catBannerImg: downloadURLs[0],
+      catImages: downloadURLs,
       fosterID,
     });
     props.closeModal();
