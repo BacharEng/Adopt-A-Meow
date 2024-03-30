@@ -11,6 +11,7 @@ import { useMutation } from "react-query";
 // import zustand services
 import { deleteCat } from "../services/catService";
 import { useCatStore, Cat } from "../store/useCatStore";
+import CatPage from "./CatPage";
 
 export interface CatItemProps {
   cat: Cat;
@@ -31,6 +32,7 @@ const modalStyle = {
 const CatItem: React.FC<CatItemProps> = (props: CatItemProps) => {
   //Local states
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [isShowMore, setIsShowMore] = useState(false);
 
   //functions for CRUD
   const handleDelete = () => {
@@ -44,12 +46,18 @@ const CatItem: React.FC<CatItemProps> = (props: CatItemProps) => {
   });
 
   //modal control functions
+  const handleShowMoreInfo = () => {
+    setIsShowMore(true);
+    openModal();
+  };
+
   function openModal() {
     setIsOpen(true);
   }
 
   function closeModal() {
     setIsOpen(false);
+    setIsShowMore(false);
   }
 
   return (
@@ -61,6 +69,7 @@ const CatItem: React.FC<CatItemProps> = (props: CatItemProps) => {
             <p>{`Age: ${props.cat.catAge}`}</p>
             <p>{`Address: ${props.cat.fosterAddress}`}</p>
             <p>{`Foster Phone number: ${props.cat.fosterPhone}`}</p>
+            <button onClick={handleShowMoreInfo}>Show more info</button>
           </div>
           <div className="col-lg-6">
             <img
@@ -90,7 +99,19 @@ const CatItem: React.FC<CatItemProps> = (props: CatItemProps) => {
         contentLabel="Edit Cat"
       >
         <FaWindowClose onClick={closeModal} />
-        {modalIsOpen && <EditCat cat={props.cat} closeModal={closeModal} />}
+        {modalIsOpen && (
+          <>
+            {isShowMore ? (
+              <>
+                <CatPage cat={props.cat} />
+              </>
+            ) : (
+              <>
+                <EditCat cat={props.cat} closeModal={closeModal} />
+              </>
+            )}
+          </>
+        )}
       </ReactModal>
     </>
   );
