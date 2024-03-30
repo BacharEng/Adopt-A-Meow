@@ -23,8 +23,11 @@ const modalStyle = {
     zIndex: 9999,
   },
   content: {
-    left: "34%",
-    width: "34%",
+    left: "50%",
+    top: "0",
+    bottom: "0",
+    transform: "translateX(-50%)",
+    width: "50%",
     zIndex: 10000,
   },
 };
@@ -64,14 +67,7 @@ const CatItem: React.FC<CatItemProps> = (props: CatItemProps) => {
     <>
       <div className="container cat-item cat-item-lg cat-item-sm">
         <div className="row">
-          <div className="col-lg-6">
-            <h1>{`This is ${props.cat.catName}`}</h1>
-            <p>{`Age: ${props.cat.catAge}`}</p>
-            <p>{`Address: ${props.cat.fosterAddress}`}</p>
-            <p>{`Foster Phone number: ${props.cat.fosterPhone}`}</p>
-            <button onClick={handleShowMoreInfo}>Show more info</button>
-          </div>
-          <div className="col-lg-6">
+          <div className="col-lg-12">
             <img
               src={
                 props.cat.catBannerImg
@@ -80,15 +76,24 @@ const CatItem: React.FC<CatItemProps> = (props: CatItemProps) => {
               }
               className="img-fluid cat-image"
             />
-            {props.isAuth && (
-              <>
+          </div>
+          {props.isAuth && (
+            <>
+              <div className="col-lg-12 light-blue-bg">
                 <FiEdit onClick={openModal} className="editIcon" />
                 <TiUserDeleteOutline
                   onClick={handleDelete}
                   className="deleteIcon"
                 />
-              </>
-            )}
+              </div>
+            </>
+          )}
+          <div className="col-lg-12 light-blue-bg">
+            <h1>{`This is ${props.cat.catName}`}</h1>
+            <p>{`Age: ${props.cat.catAge}`}</p>
+            <p>{`Address: ${props.cat.fosterAddress}`}</p>
+            <p>{`Foster Phone number: ${props.cat.fosterPhone}`}</p>
+            <button onClick={handleShowMoreInfo}>Show more info</button>
           </div>
         </div>
       </div>

@@ -12,8 +12,11 @@ const modalStyle = {
     zIndex: 9999,
   },
   content: {
-    left: "34%",
-    width: "34%",
+    left: "50%",
+    top: "0",
+    bottom: "0",
+    transform: "translateX(-50%)",
+    width: "50%",
     zIndex: 10000,
   },
 };

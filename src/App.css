@@ -1,5 +1,5 @@
 body {
-  background-color: #e2f4c5;
+  background-color: #fff;
 }
 
 .inputLogin {
@@ -25,8 +25,13 @@ body {
   width: 100%;
 }
 
+.btnHover {
+  background-color: #496989;
+}
+
 .btnHover:hover {
-  background-color: #58a399;
+  background-color: #ffc22f;
+  scale: 1.05;
 }
 
 .sideBar {
@@ -35,21 +40,6 @@ body {
 
 .catGallery {
   margin-top: 36px;
-}
-
-/* .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
-} */
-
-.cat-list {
-  position: relative;
-  z-index: 1;
 }
 
 .cat-item {
@@ -62,20 +52,20 @@ body {
 }
 
 .cat-item:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
   transform: scale(1.03);
 }
 
 @media only screen and (min-width: 1024px) {
   .cat-item-lg {
-    height: 30vh;
+    height: 60vh;
     width: 100%;
   }
 }
 
 @media only screen and (max-width: 1024px) {
   .cat-item-sm {
-    height: 50vh;
+    height: 70vh;
     width: 100%;
   }
 }
@@ -85,6 +75,11 @@ body {
   max-height: 150px;
 }
 
+.cat-banner-img {
+  width: auto;
+  height: 100%;
+}
+
 .uploadImage {
   margin-top: 12px;
   width: 100%;
@@ -92,13 +87,13 @@ body {
 }
 
 .editIcon {
-  color: gold;
+  color: #fb8501;
   font-size: 32px;
 }
 
 .deleteIcon {
-  font-size: 36px;
   color: crimson;
+  font-size: 36px;
 }
 
 h1 {
@@ -125,20 +120,16 @@ h3 {
   margin-right: 6px;
 }
 
-.light-green-text {
-  color: #e2f4c5;
+.light-blue-text {
+  color: #8ec9e7;
 }
 
-.green-text {
-  color: #a8cd9f;
-}
-
-.dark-green-text {
-  color: #58a399;
+.blue-text {
+  color: #219ebc;
 }
 
 .dark-blue-text {
-  color: #496989;
+  color: #033047;
 }
 
 .black-text {
@@ -153,22 +144,42 @@ h3 {
   color: white;
 }
 
-.light-green-bg {
-  background-color: #e2f4c5;
+.light-orange-text {
+  color: #fed36d;
 }
 
-.green-bg {
-  background-color: #a8cd9f;
+.orange-text {
+  color: #ffb703;
 }
 
-.dark-green-bg {
-  background-color: #58a399;
+.dark-orange-text {
+  color: #fb8501;
+}
+
+.light-blue-bg {
+  background-color: #8ec9e7;
+}
+
+.blue-bg {
+  background-color: #219ebc;
 }
 
 .dark-blue-bg {
-  background-color: #496989;
+  background-color: #033047;
 }
 
 .black-bg {
   background-color: black;
+}
+
+.light-orange-bg {
+  background-color: #fed36d;
+}
+
+.orange-bg {
+  background-color: #ffc22f;
+}
+
+.dark-orange-bg {
+  background-color: #ff8400;
 }

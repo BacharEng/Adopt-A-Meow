@@ -14,9 +14,9 @@ const NavBar = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg dark-blue-bg">
+      <nav className="navbar navbar-expand-lg blue-bg">
         <a className="navbar-brand" href="/homepage">
-          <span className="light-green-text">Adopt</span>-A-Meow
+          Adopt<span className="light-orange-text">-a-MEOW</span>
         </a>
         <button
           className="navbar-toggler"
@@ -45,7 +45,7 @@ const NavBar = () => {
           </ul>
           <form className="form-inline my-2 my-lg-0">
             <button
-              className="btn light-green-bg black-text btnHover my-2 my-sm-0"
+              className="btn dark-blue-bg white-text btnHover my-2 my-sm-0"
               type="button"
               onClick={logout}
             >

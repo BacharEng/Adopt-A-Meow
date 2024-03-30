@@ -8,10 +8,7 @@ const Homepage = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-12 bannerImg">
-            <img
-              src="src\assets\cat-banner-1980x350.jpg"
-              className="img-fluid"
-            />
+            <img src="src\assets\cat-banner-logo.jpg" className="img-fluid" />
           </div>
           <CatsList />
         </div>

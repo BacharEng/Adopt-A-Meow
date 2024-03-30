@@ -25,8 +25,6 @@ const AddCat = (props: Props) => {
   //Upload images local states
   const [downloadURLs, setDownloadURLs] = useState<string[]>([]);
   const [files, setFiles] = useState<File[] | null>([]);
-  // const [progress, setProgress] = useState(0);
-  // const [isUploading, setIsUploading] = useState(false);
 
   const addCat = useCatStore((state) => state.addCat);
 
