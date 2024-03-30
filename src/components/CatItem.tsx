@@ -65,7 +65,7 @@ const CatItem: React.FC<CatItemProps> = (props: CatItemProps) => {
 
   return (
     <>
-      <div className="container cat-item cat-item-lg cat-item-sm">
+      <div className="container-fluid cat-item cat-item-lg cat-item-sm">
         <div className="row justify-content-center">
           <div className="col-lg-12 d-flex justify-content-center">
             <img

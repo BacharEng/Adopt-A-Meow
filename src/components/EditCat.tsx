@@ -24,14 +24,16 @@ const EditCat: React.FC<EditCatProps> = (props: EditCatProps) => {
   const [catAge, setCatAge] = useState(props.cat.catAge);
   const [fosterAddress, setFosterAddress] = useState(props.cat.fosterAddress);
   const [fosterPhone, setFosterPhone] = useState(props.cat.fosterPhone);
+  const [catSex, setCatSex] = useState("");
+  const [catBreed, setCatBreed] = useState("");
+  const [catWeight, setCatWeight] = useState("");
+  const [catDescription, setCatDescription] = useState("");
 
   //local image states
   const [downloadURLs, setDownloadURLs] = useState<string[]>(
     props.cat.catImages
   );
   const [files, setFiles] = useState<File[] | null>([]);
-  // const [isUploading, setIsUploading] = useState(false);
-  // const [progress, setProgress] = useState(0);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -40,6 +42,10 @@ const EditCat: React.FC<EditCatProps> = (props: EditCatProps) => {
       update: {
         catName,
         catAge,
+        catSex,
+        catBreed,
+        catWeight,
+        catDescription,
         fosterAddress,
         fosterPhone,
         catBannerImg: downloadURLs[0],
@@ -116,6 +122,7 @@ const EditCat: React.FC<EditCatProps> = (props: EditCatProps) => {
             />
             <label>Cat Name</label>
           </div>
+
           <div className="form-floating">
             <input
               type="text"
@@ -126,6 +133,63 @@ const EditCat: React.FC<EditCatProps> = (props: EditCatProps) => {
             />
             <label>Cat Age</label>
           </div>
+
+          <label className="radio-label catForm">
+            Male
+            <input
+              className="form-control catForm"
+              type="radio"
+              name="sex"
+              value="Male"
+              placeholder="Male"
+              checked={catSex === "male"}
+              onChange={(e) => setCatSex(e.target.value)}
+            />
+          </label>
+          <label className="radio-label catForm">
+            Female
+            <input
+              className="form-control catForm"
+              type="radio"
+              name="sex"
+              value="Female"
+              placeholder="Female"
+              checked={catSex === "Female"}
+              onChange={(e) => setCatSex(e.target.value)}
+            />
+          </label>
+
+          <div className="form-floating">
+            <input
+              type="text"
+              className="form-control catForm"
+              placeholder="Add cat breed/Colours"
+              value={catBreed}
+              onChange={(e) => setCatBreed(e.target.value)}
+            />
+            <label>Cat breed/colours</label>
+          </div>
+
+          <div className="form-floating">
+            <input
+              type="text"
+              className="form-control catForm"
+              placeholder="Cat Weight"
+              value={catWeight}
+              onChange={(e) => setCatWeight(e.target.value)}
+            />
+            <label>Cat Weight</label>
+          </div>
+
+          <div className="form-group catForm">
+            <textarea
+              className="form-control"
+              id="CatDescription"
+              rows={3}
+              placeholder="Add the cats description"
+            ></textarea>
+          </div>
+
           <div className="form-floating">
             <input
               type="text"
@@ -136,6 +200,7 @@ const EditCat: React.FC<EditCatProps> = (props: EditCatProps) => {
             />
             <label>Foster Address</label>
           </div>
+
           <div className="form-floating">
             <input
               type="tel"
@@ -146,6 +211,7 @@ const EditCat: React.FC<EditCatProps> = (props: EditCatProps) => {
             />
             <label>Phone Number</label>
           </div>
+
           <div className="form-floating">
             <input
               type="file"
@@ -156,6 +222,7 @@ const EditCat: React.FC<EditCatProps> = (props: EditCatProps) => {
             />
             <label>Cat Image</label>
           </div>
+
           <div className="row">
             {downloadURLs && (
               <>

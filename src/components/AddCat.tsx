@@ -82,6 +82,7 @@ const AddCat = (props: Props) => {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     const fileList = e.target.files;
     if (fileList) {
       const selectedFiles: File[] = Array.from(fileList);
@@ -148,7 +149,7 @@ const AddCat = (props: Props) => {
           <label>Cat Age</label>
         </div>
 
-        <label className="radio-label">
+        <label className="radio-label catForm">
           Male
           <input
             className="form-control catForm"
@@ -160,7 +161,7 @@ const AddCat = (props: Props) => {
             onChange={(e) => setCatSex(e.target.value)}
           />
         </label>
-        <label className="radio-label">
+        <label className="radio-label catForm">
           Female
           <input
             className="form-control catForm"
@@ -172,6 +173,40 @@ const AddCat = (props: Props) => {
             onChange={(e) => setCatSex(e.target.value)}
           />
         </label>
+
+        <div className="form-floating">
+          <input
+            type="text"
+            className="form-control catForm"
+            placeholder="Add cat breed/Colours"
+            value={catBreed}
+            onChange={(e) => setCatBreed(e.target.value)}
+            required
+          />
+          <label>Cat breed/colours</label>
+        </div>
+
+        <div className="form-floating">
+          <input
+            type="text"
+            className="form-control catForm"
+            placeholder="Cat Weight"
+            value={catWeight}
+            onChange={(e) => setCatWeight(e.target.value)}
+            required
+          />
+          <label>Cat Weight</label>
+        </div>
+
+        <div className="form-group catForm">
+          <textarea
+            className="form-control"
+            id="CatDescription"
+            rows={3}
+            placeholder="Add the cats description"
+            onChange={(e) => setCatDescription(e.target.value)}
+          ></textarea>
+        </div>
 
         <div className="form-floating">
           <input

@@ -38,7 +38,6 @@ export const updateCat = async (
   id: string,
   update: Partial<Omit<Cat, "id">>
 ): Promise<void> => {
-  console.log(update);
   const catDoc = doc(database, "cats", id);
   await updateDoc(catDoc, update);
 };
