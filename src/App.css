@@ -27,6 +27,7 @@ body {
 
 .btnHover {
   background-color: #496989;
+  border: none;
 }
 
 .btnHover:hover {

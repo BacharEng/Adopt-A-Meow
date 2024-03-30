@@ -34,16 +34,18 @@ const AddCat = (props: Props) => {
 
   const { mutate, isLoading, error } = useMutation(createCat, {
     onSuccess: (data) => {
+      console.log(downloadURLs[0]);
+      console.log(downloadURLs);
       addCat({
         id: data.id,
-        catName,
-        catAge,
-        catSex,
-        catBreed,
-        catWeight,
-        catDescription,
-        fosterAddress,
-        fosterPhone,
+        catName: catName,
+        catAge: catAge,
+        catSex: catSex,
+        catBreed: catBreed,
+        catWeight: catWeight,
+        catDescription: catDescription,
+        fosterAddress: fosterAddress,
+        fosterPhone: fosterPhone,
         catBannerImg: downloadURLs[0],
         catImages: downloadURLs,
         fosterID,
@@ -149,30 +151,35 @@ const AddCat = (props: Props) => {
           <label>Cat Age</label>
         </div>
 
-        <label className="radio-label catForm">
-          Male
+        <div className="form-check form-check-inline catForm">
           <input
-            className="form-control catForm"
+            className="form-check-input"
             type="radio"
-            name="sex"
+            name="sexRadioOptions"
+            id="maleRadio"
             value="Male"
-            placeholder="Male"
-            checked={catSex === "male"}
+            checked={catSex === "Male"}
             onChange={(e) => setCatSex(e.target.value)}
           />
-        </label>
-        <label className="radio-label catForm">
-          Female
+          <label className="form-check-label" htmlFor="maleRadio">
+            Male
+          </label>
+        </div>
+
+        <div className="form-check form-check-inline catForm">
           <input
-            className="form-control catForm"
+            className="form-check-input"
             type="radio"
-            name="sex"
+            name="sexRadioOptions"
+            id="femaleRadio"
             value="Female"
-            placeholder="Female"
             checked={catSex === "Female"}
             onChange={(e) => setCatSex(e.target.value)}
           />
-        </label>
+          <label className="form-check-label" htmlFor="femaleRadio">
+            Female
+          </label>
+        </div>
 
         <div className="form-floating">
           <input
@@ -253,12 +260,6 @@ const AddCat = (props: Props) => {
             </div>
           ))}
         </div>
-        {/* {isUploading && (
-          <>
-            <p>Loading...</p>
-            <p>{progress}</p>
-          </>
-        )} */}
         <button
           type="submit"
           className="btn btn-success btn-lg catForm"

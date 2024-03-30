@@ -93,7 +93,12 @@ const CatItem: React.FC<CatItemProps> = (props: CatItemProps) => {
             <p>{`Age: ${props.cat.catAge}`}</p>
             <p>{`Address: ${props.cat.fosterAddress}`}</p>
             <p>{`Foster Phone number: ${props.cat.fosterPhone}`}</p>
-            <button onClick={handleShowMoreInfo}>Show more info</button>
+            <button
+              className="btn btn-success btn-lg catForm btnHover"
+              onClick={handleShowMoreInfo}
+            >
+              Show more info
+            </button>
           </div>
         </div>
       </div>

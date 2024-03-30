@@ -24,15 +24,15 @@ const EditCat: React.FC<EditCatProps> = (props: EditCatProps) => {
   const [catAge, setCatAge] = useState(props.cat.catAge);
   const [fosterAddress, setFosterAddress] = useState(props.cat.fosterAddress);
   const [fosterPhone, setFosterPhone] = useState(props.cat.fosterPhone);
-  const [catSex, setCatSex] = useState("");
-  const [catBreed, setCatBreed] = useState("");
-  const [catWeight, setCatWeight] = useState("");
-  const [catDescription, setCatDescription] = useState("");
+  const [catSex, setCatSex] = useState(props.cat.catSex);
+  const [catBreed, setCatBreed] = useState(props.cat.catBreed);
+  const [catWeight, setCatWeight] = useState(props.cat.catWeight);
+  const [catDescription, setCatDescription] = useState(
+    props.cat.catDescription
+  );
 
   //local image states
-  const [downloadURLs, setDownloadURLs] = useState<string[]>(
-    props.cat.catImages
-  );
+  const [downloadURLs, setDownloadURLs] = useState<string[]>([]);
   const [files, setFiles] = useState<File[] | null>([]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -63,6 +63,10 @@ const EditCat: React.FC<EditCatProps> = (props: EditCatProps) => {
         useCatStore.getState().updateCat(props.cat.id, {
           catName: catName,
           catAge: catAge,
+          catSex: catSex,
+          catBreed: catBreed,
+          catWeight: catWeight,
+          catDescription: catDescription,
           fosterAddress: fosterAddress,
           fosterPhone: fosterPhone,
           catBannerImg: downloadURLs[0],
@@ -134,30 +138,34 @@ const EditCat: React.FC<EditCatProps> = (props: EditCatProps) => {
             <label>Cat Age</label>
           </div>
 
-          <label className="radio-label catForm">
-            Male
+          <div className="form-check form-check-inline catForm">
             <input
-              className="form-control catForm"
+              className="form-check-input"
               type="radio"
-              name="sex"
+              name="sexRadioOptions"
+              id="maleRadio"
               value="Male"
-              placeholder="Male"
-              checked={catSex === "male"}
+              checked={catSex === "Male"}
               onChange={(e) => setCatSex(e.target.value)}
             />
-          </label>
-          <label className="radio-label catForm">
-            Female
+            <label className="form-check-label" htmlFor="maleRadio">
+              Male
+            </label>
+          </div>
+          <div className="form-check form-check-inline catForm">
             <input
-              className="form-control catForm"
+              className="form-check-input"
               type="radio"
-              name="sex"
+              name="sexRadioOptions"
+              id="femaleRadio"
               value="Female"
-              placeholder="Female"
               checked={catSex === "Female"}
               onChange={(e) => setCatSex(e.target.value)}
             />
-          </label>
+            <label className="form-check-label" htmlFor="femaleRadio">
+              Female
+            </label>
+          </div>
 
           <div className="form-floating">
             <input
@@ -186,7 +194,8 @@ const EditCat: React.FC<EditCatProps> = (props: EditCatProps) => {
               className="form-control"
               id="CatDescription"
               rows={3}
-              placeholder="Add the cats description"
+              defaultValue={catDescription}
+              onChange={(e) => setCatDescription(e.target.value)}
             ></textarea>
           </div>
 
