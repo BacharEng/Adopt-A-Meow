@@ -16,7 +16,7 @@ const AccountCatList: React.FC = () => {
           {cats
             .filter((cat) => cat.fosterID === auth.currentUser?.uid)
             .map((cat) => (
-              <div className="col-lg-3 col-sm-6 cat-list" key={cat.id}>
+              <div className="col-lg-4 col-sm-6 cat-list" key={cat.id}>
                 <CatItem cat={cat} isAuth={true} />
               </div>
             ))}

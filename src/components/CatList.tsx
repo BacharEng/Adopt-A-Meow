@@ -15,7 +15,7 @@ const CatsList: React.FC = () => {
       <div className="container catGallery">
         <div className="row">
           {cats.map((cat) => (
-            <div className="col-lg-2 col-sm-6" key={cat.id}>
+            <div className="col-lg-3 col-md-4 col-sm-6" key={cat.id}>
               <CatItem cat={cat} />
             </div>
           ))}
