@@ -38,6 +38,7 @@ const CatPage: React.FC<CatItemProps> = (props: CatItemProps) => {
             <p>{`Cat Age: ${props.cat.catAge}`}</p>
             <p>{`Cat Sex: ${props.cat.catSex}`}</p>
             <p>{`Cat Breed/Colour: ${props.cat.catBreed}`}</p>
+            <p>{`Cat Weight: ${props.cat.catWeight}`}</p>
             <br />
             <h2>Cat Description:</h2>
             {props.cat.catDescription}
