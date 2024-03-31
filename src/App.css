@@ -47,17 +47,18 @@ body {
 }
 
 .cat-item {
-  position: relative;
   background-color: #496989;
   margin-bottom: 16px;
-  display: flex;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
-  z-index: 11;
 }
 
 .cat-item:hover {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
   transform: scale(1.03);
+}
+
+.showMoreInfo{
+  margin-bottom: 16px;
 }
 
 @media only screen and (min-width: 1024px) {
@@ -116,6 +117,15 @@ h3 {
 
 .r10 {
   border-radius: 10px;
+}
+
+.br12{
+  border-radius: 12px;
+}
+
+.br-bot12{
+  border-end-start-radius: 12px;
+  border-end-end-radius: 12px;
 }
 
 .top-mar-6 {

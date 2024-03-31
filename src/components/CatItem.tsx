@@ -65,7 +65,7 @@ const CatItem: React.FC<CatItemProps> = (props: CatItemProps) => {
 
   return (
     <>
-      <div className="container-fluid cat-item cat-item-lg cat-item-sm">
+      <div className="container-fluid cat-item br12">
         <div className="row justify-content-center">
           <div className="col-lg-12 d-flex justify-content-center">
             <img
@@ -88,13 +88,13 @@ const CatItem: React.FC<CatItemProps> = (props: CatItemProps) => {
               </div>
             </>
           )}
-          <div className="col-lg-12 light-blue-bg">
+          <div className="col-lg-12 light-blue-bg br-bot12">
             <h1>{`This is ${props.cat.catName}`}</h1>
             <p>{`Age: ${props.cat.catAge}`}</p>
             <p>{`Address: ${props.cat.fosterAddress}`}</p>
             <p>{`Foster Phone number: ${props.cat.fosterPhone}`}</p>
             <button
-              className="btn btn-success btn-lg catForm btnHover"
+              className="btn white-text btn-lg catForm btnHover showMoreInfo"
               onClick={handleShowMoreInfo}
             >
               Show more info
