@@ -72,6 +72,7 @@ const Authentication: React.FC = () => {
           });
         })
         .catch((error) => {
+          toast.error(error.message);
           let errMessage = "";
           console.log(error.message);
 

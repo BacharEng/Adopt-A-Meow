@@ -27,7 +27,7 @@ const modalStyle = {
     top: "0",
     bottom: "0",
     transform: "translateX(-50%)",
-    width: "50%",
+    width: "67%",
     zIndex: 10000,
   },
 };
